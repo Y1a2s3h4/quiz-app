@@ -1,8 +1,7 @@
 const users = require("../Model/users");
 const bcrpyt = require("bcryptjs");
 const { validUserData } = require("../Validators/validUsersData");
-users.create();
-exports._addUser = async function (req, res) {
+exports._addUser = async (req, res) => {
   try {
     const { email, username, password } = req.body;
     const { success, statusCode, errorMsg } = await validUserData(req, res);

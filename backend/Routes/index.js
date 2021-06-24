@@ -1,5 +1,7 @@
-const addUserRoute = require("./addUser");
+const router = require("express").Router();
 
-module.exports = function (app) {
-  addUserRoute(app);
-};
+router.use("/signup", require("./addUser"));
+router.use("/signin", require("./userSignin"));
+router.use("/addquiz", require("./addQuiz"));
+router.use("/addsession", require("./addSession"));
+module.exports = router;

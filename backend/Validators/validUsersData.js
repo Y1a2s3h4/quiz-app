@@ -1,6 +1,6 @@
 const users = require("../Model/users");
 
-exports.validUserData = async function (req, res) {
+exports.validUserData = async (req, res) => {
   try {
     const { email, username, password, cpassword } = req.body;
     if (!email || !username || !password || !cpassword) {

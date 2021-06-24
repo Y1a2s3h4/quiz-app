@@ -7,8 +7,7 @@ const mongoose = require("mongoose");
 app.use(express.json());
 app.use(cors());
 
-require("./Routes")(app);
-
+app.use("/", require("./Routes"));
 mongoose
   .connect(process.env.CONN_STRING, {
     useNewUrlParser: true,
@@ -16,8 +15,8 @@ mongoose
     useCreateIndex: true,
     useFindAndModify: false,
   })
-  .then(() => console.log("Connected To MongoDB!"))
-  .catch((err) => console.log(err));
+  .then(() => console.log("MongoDB Connected!!!"))
+  .catch((err) => console.log(err.message));
 
 app.listen(port, () => {
   console.log(`Server Running on http://localhost:${port}`);
