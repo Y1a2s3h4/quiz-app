@@ -8,7 +8,6 @@ exports.quizValid = async (req, res) => {
         errorMsg: "Empty Questions Found. Fill Them Up.",
       };
     }
-
     return {
       success: true,
       statusCode: 200,
