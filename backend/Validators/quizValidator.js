@@ -1,7 +1,7 @@
 exports.quizValid = async (req, res) => {
   try {
-    const { sessionNo, sessionTitle } = req.body;
-    if (!sessionNo || !sessionTitle) {
+    const { sessions } = req.body;
+    if (!sessions) {
       return {
         success: false,
         statusCode: 400,
@@ -12,6 +12,7 @@ exports.quizValid = async (req, res) => {
     return {
       success: true,
       statusCode: 200,
+      sessions,
     };
   } catch (err) {
     res.status(400).json({ errMsg: err.message });

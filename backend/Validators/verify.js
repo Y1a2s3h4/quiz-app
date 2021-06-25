@@ -13,7 +13,6 @@ exports.verifyUser = async (req, res, next) => {
       } else {
         req.authData = authData;
       }
-      next();
     });
   } catch (err) {
     res.status(400).json({ errMsg: err.message });
