@@ -5,6 +5,7 @@ import { Button } from "@material-ui/core"
 import { AddRounded } from '@material-ui/icons';
 import { Link } from "react-router-dom"
 import axios from "axios"
+import Session from "./Session"
 import "./Admin.css"
 const useStyles = makeStyles((theme) => ({
     title: {
@@ -32,8 +33,7 @@ export default function Admin() {
                 Authorization: `Bearer ${token}`,
             },
         })
-        await setSessions([data])
-        console.log(sessions)
+        setSessions(data)
     }
     return (
         <Grid
@@ -49,19 +49,11 @@ export default function Admin() {
                         <AddRounded />
                     </Button>
                 </Link>
-                {() => {
-                    if (!!sessions) {
-                        sessions.sessions.map((item, idx) => {
-                            console.log(sessions);
-
-                            return <Link to="/admin/quiz" color="inherit" className="login-link">
-                                <Button variant="contained" color="white" className={classes.btn}>
-                                    {idx + 1}
-                                </Button>
-                            </Link>
-                        })
-                    }
-                }
+                {
+                    console.log(sessions.sessions) && sessions.length > 0 &&
+                    sessions.sessions.map((item, idx) => {
+                        return <Session item={item} classes={classes} />
+                    })
 
                 }
             </Grid>
