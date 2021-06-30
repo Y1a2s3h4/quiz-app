@@ -4,7 +4,10 @@ const Quiz = new mongoose.Schema({
   email: String,
   sessions: [
     {
-      sessionNo: Number,
+      sessionNo: {
+        type: Number,
+        default: 0,
+      },
       sessionTitle: String,
       questions: [
         {

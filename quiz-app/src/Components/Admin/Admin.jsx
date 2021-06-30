@@ -1,0 +1,70 @@
+import React, { useEffect, useState } from 'react'
+import { makeStyles } from '@material-ui/core/styles';
+import { Grid, Typography } from "@material-ui/core"
+import { Button } from "@material-ui/core"
+import { AddRounded } from '@material-ui/icons';
+import { Link } from "react-router-dom"
+import axios from "axios"
+import "./Admin.css"
+const useStyles = makeStyles((theme) => ({
+    title: {
+        marginTop: theme.spacing(2),
+        marginBottom: theme.spacing(5),
+    },
+    btn: {
+        width: "150px",
+        height: "150px",
+        backgroundColor: "#fff",
+        margin: theme.spacing(2)
+    }
+}));
+export default function Admin() {
+    const classes = useStyles()
+    const [sessions, setSessions] = useState([])
+    useEffect(() => {
+        fetchSessions()
+    }, [])
+
+    const fetchSessions = async () => {
+        const token = localStorage.getItem("tkn")
+        const { data } = await axios.post("https://quiz-app-6.herokuapp.com/getsession", {}, {
+            headers: {
+                Authorization: `Bearer ${token}`,
+            },
+        })
+        await setSessions([data])
+        console.log(sessions)
+    }
+    return (
+        <Grid
+            container
+            direction="column"
+            justify="center"
+            alignItems="center"
+        >
+            <Typography variant="h3" className={classes.title}>Create Your Quiz</Typography>
+            <Grid direction="row" container justify="center" alignItems="flex-start">
+                <Link to="/admin/quiz" color="inherit" className="login-link">
+                    <Button variant="contained" className={classes.btn}>
+                        <AddRounded />
+                    </Button>
+                </Link>
+                {() => {
+                    if (!!sessions) {
+                        sessions.sessions.map((item, idx) => {
+                            console.log(sessions);
+
+                            return <Link to="/admin/quiz" color="inherit" className="login-link">
+                                <Button variant="contained" color="white" className={classes.btn}>
+                                    {idx + 1}
+                                </Button>
+                            </Link>
+                        })
+                    }
+                }
+
+                }
+            </Grid>
+        </Grid>
+    )
+}

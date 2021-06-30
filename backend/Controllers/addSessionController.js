@@ -12,10 +12,12 @@ exports._addSession = async (req, res, next) => {
       return res.status(statusCode).json({ errorMsg });
     } else {
       const { statusCode, sessions } = await quizValid(req, res);
+
       await quiz.updateMany(
         { email: req.authData.email },
         { $push: { sessions } }
       );
+
       return res
         .status(statusCode)
         .json(await quiz.findOne({ email: req.authData.email }));
